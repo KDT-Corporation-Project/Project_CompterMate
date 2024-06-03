@@ -1,0 +1,79 @@
+:root {
+    --gray-color: #F2F2F2;
+    --text-color: #7E7E7E;
+    --white-color: #ffffff;
+    --green-color: #1FA680;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*background-color: var(--gray-color);*/
+    padding: 50px 50px;}
+
+
+.white_back {
+    /*height: 90%;*/
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white-color);
+    /*padding: 12px; !*안쪽으로 패딩?!*!*/
+    border-radius: 25px;  /* 둥근 모서리 설정 */
+}
+
+.nav_profile{
+    /*margin-right: auto;*/
+    width: 64px;
+    height: 64px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+/* 이미지 오른쪽으로 붙임 */
+.nav_logo {
+    order: 100;
+    margin-left: auto;
+    margin-right: 80px;
+}
+    
+.nav_menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+.nav_menu li {
+    margin: 0 10px;
+}
+.nav_menu li a {
+    display: block;
+    padding: 10px 40px;
+    text-decoration: none;
+    color: var(--text-color);
+    /* border: 1px solid #ddd; */
+    border-radius: 20px;
+    background-color: var(--gray-color);
+    transition: background-color 0.3s;
+    font-size:20px;
+}
+
+.nav_menu li a.active {
+    background-color: #efae6a;
+    color: #fff; /* 텍스트 색상 변경 */
+}
+
+
+/* 여기서 부터 hover */
+.nav_menu li a:hover {
+    background-color: var(--green-color);
+    --text-color: white;
+}
+
