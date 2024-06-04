@@ -1,0 +1,325 @@
+/* <div class="left-panel_dash"> -> 개발자가 보기 편하기용 의미X
+        <div class="chart2_box"> -> 이걸로 조정*/
+:root {
+    --gray-color: #F2F2F2;
+    --text-color: #7E7E7E;
+    --white-color: #ffffff;
+    --green-color: #1FA680;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+#chart1_box {
+    position: relative;
+    border-radius: 30px;
+    background-color: var(--gray-color);
+    padding: 15px;
+    margin: 15px;
+    /* padding-right: 40px; */
+    /* margin-right: 30px; */
+    /*margin-bottom: 25px;*/
+    /* height: 52%; */
+}
+
+.button_ {
+    padding: 10px 40px;
+    text-decoration: none;
+    color: var(--text-color);
+    border-radius: 20px;
+    border: none;
+    background-color: var(--white-color);
+    font-size: 20px;
+    /*margin-bottom: 15px;*/
+    margin-right: 10px;
+}
+
+.button_.active {
+    background-color: var(--green-color);
+    color: var(--white-color);
+}
+
+#graph1-data {
+    height:130%;
+    margin-bottom: 20px;
+    /* margin-top:10px; */
+}
+
+/* 게이지 스타일 */
+#gauges-container {
+    display: flex;
+    flex-wrap: wrap;
+    /*justify-content: space-around;*/
+    position: relative;
+    border-radius: 30px;
+    background-color: var(--gray-color);
+    /*padding: 15px;*/
+    /*margin: 15px;*/
+    /* height: 340px; */
+    /* width: 860px; */
+    margin: 15px;
+    margin-top:0px;
+    margin-bottom:0px;
+    height:99%;
+    /*margin-left: 15px;*/
+
+}
+
+#gauges-container > div {
+    /*position: relative;*/
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    /*flex-wrap: ;*/
+    /*position: relative;*/
+    border-radius: 30px;
+    /* background-color: var(--gray-color); */
+    /*background: chartreuse;*/
+    /* height: 101%; */
+    width:875px;
+
+
+}
+
+/* 도넛 차트 */
+.chart2_box {
+    display: flex;
+    /*flex-wrap: ;*/
+    position: relative;
+    border-radius: 30px;
+    background-color: var(--gray-color);
+    padding: 15px;
+    width: 700px;
+    margin: 15px;
+    margin-top:0px;
+    margin-right: 0px;
+    /* height: 110%; */
+    justify-content: space-around;
+}
+
+/* .donut-chart {
+    background-color: aquamarine;
+} */
+
+/* 컨테이너 스타일 추가 */
+.chart-container {
+    display: flex;
+    height: 40%;
+}
+
+
+
+.chart {
+    /*width:110%;*/
+    /* background:    black; */
+    display: flex;
+    /* margin-top: 10px; */
+    margin-left: -75px;
+
+}
+
+.gauge-row {
+    display: flex;
+    width: 30%;
+    /* height: 60%; */
+    /* margin-bottom: -500px; */
+    /* background: cornflowerblue; */
+}
+
+
+.double-width {
+    flex: 1 1 100%; /* Double width for combining two rows */
+    /*height: 250px; !* Adjust height as necessary *!*/
+    /* background: chocolate; */
+}
+
+.left-gauge_dash {
+    display: flex;
+    flex-direction: row;
+    /* background-color: magenta; */
+    width:30%;
+    height: 30%;
+    /* margin-top:-200px; */
+    margin-left:25px;
+    /* margin-top:15px;/ */
+
+    /*margin-left:30px;*/
+    /*justify-content: center;*/
+    /* background-color: aqua; */
+    
+}
+
+.right-gauge_dash {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /*grid-gap: 10px;*/
+    /* height:200px; */
+    width: 20%;
+    height:20%;
+    margin-top:-100px;
+    margin-left: 150px;
+    /* background: green; */
+}
+
+.gauge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background: #F2F2F2;*/
+    border-radius: 10px;
+    /* height: 200px; */
+    /*margin-left:10px;*/
+    /* background: white; */
+    /*height: 50%;*/
+    /*width: 30%;*/
+
+    /*margin: 10px;*/
+}
+
+.gauge.large {
+    position: relative;
+    flex: 1 1 100%; /* Double width for combining two rows */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto; /* height 값을 auto로 설정하여 내용에 맞게 조정 */
+    /* background: yellowgreen; */
+}
+
+.gauge.small {
+    justify-content: center;
+    align-items: center;
+    width: auto; /* width 값을 auto로 설정하여 내용에 맞게 조정 */
+    height: auto; /* height 값을 auto로 설정하여 내용에 맞게 조정 */
+    /* background: white; */
+}
+
+.right-gauge_left_dash {
+    /* margin-top: 40px; */
+    margin-left: 50px;
+    margin-right:-50px;
+    width: 10%;
+    height: 30%;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* margin-bottom:-50px; */
+    /* background-color: orangered; */
+
+}
+
+.right-gauge_right_dash {
+    /* margin-top: 40px; */
+    margin-left: -50px;
+    /* margin-right:-160px; */
+    width: 10%;
+    height: 30%;
+    /* justify-content: center;
+    align-items: center; */
+    /* margin-bottom:-500px; */
+    /* background-color: orangered; */
+    /* background-color: orchid; */
+
+}
+
+#gauge-chart-1 {
+    /*margin-top: 10px;*/
+    margin-right:40px;
+    margin-left:20px;
+    margin-top:40px;
+    width: 50%;
+    height: 20%;
+    /* background-color: olivedrab; */
+
+}
+
+#gauge-chart-2 {
+    margin-top:40px;
+    margin-right:40px;
+    margin-left:20px;
+    width: 50%;
+    height: 20%;
+    /* background-color:blueviolet; */
+
+}
+
+#gauge-chart-3 {
+    /* margin-top: -10px;// */
+    /*margin-right:40px;*/
+    width: 30%;
+    height: 30%;
+    /* background-color: beige; */
+}
+
+#gauge-chart-4 {
+    margin-top: 60px;
+    /*margin-right:40px;*/
+    width: 30%;
+    height: 30%;
+    /* background-color: aquamarine; */
+}
+
+#gauge-chart-5 {
+    /* margin-top: -10px; */
+    /*margin-right:40px;*/
+    width: 30%;
+    height: 30%;
+}
+
+#gauge-chart-6 {
+    margin-top: 60px;
+    /*margin-right:40px;*/
+    width: 30%;
+    height: 30%;
+}
+
+
+
+.right-panel_dash{
+    /* height: 30%; */
+    /* background-color: burlywood; */
+    width:55%;
+    margin-right:50px;
+}
+
+/* main_container 스타일 확인 및 수정 */
+#main_container {
+    /* width: 60%; 부모 요소의 크기에 맞게 설정 */
+    overflow: hidden; /* 내부 요소가 부모 요소를 벗어나지 않도록 설정 */
+    position: relative; /* 상대 위치 설정 */
+    /* background-color: lightgray; 확인을 위해 배경색 설정 */
+}
+
+/* gauges-container 스타일 확인 및 수정 */
+#gauges-container {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    border-radius: 30px;
+    /* margin-bottom:35px; */
+    /* height:105%; */
+    background-color: var(--gray-color);
+    /* width: 50%; 부모 요소에 맞게 너비 설정 */
+    /* margin: 15px; 상하 마진만 설정 */
+}
+
+/* 내부 gauge 요소 스타일 확인 및 수정 */
+#gauges-container > .gauge-row {
+    display: flex;
+    /* width: 80%; */
+    height: 240px;
+    margin: 10px 0; /* 적절한 상하 마진 설정 */
+    /* background: cornflowerblue; 확인을 위해 배경색 설정 */
+}
+
+.gauge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    /* background: white; */
+    width: 100%; /* 부모 요소에 맞게 너비 설정 */
+    height: auto; /* 내용에 맞게 높이 설정 */
+    margin: 10px; /* 적절한 마진 설정 */
+}

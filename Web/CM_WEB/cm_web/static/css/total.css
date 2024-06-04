@@ -1,0 +1,50 @@
+:root {
+    --gray-color: #F2F2F2;
+    --text-color: #7E7E7E;
+    --white-color: #ffffff;
+    --green-color: #1FA680;
+}
+
+.total_container{
+    /* background-color: bisque; */
+    position: absolute;
+    display: flex;
+    flex-direction: column; /* Change the direction to column */
+    inset: 15px;
+    gap: 15px; /* Add gap between the top and bottom sections */
+}
+
+/*flex = 1:2*/
+#total_top{
+    background-color: var(--gray-color);
+    flex: 1; /* Make it take up 1 part of the available space */
+    border-radius: 15px;
+}
+
+#total_bottom{
+    background-color: var(--white-color);
+    flex: 1; /* Make it take up 2 parts of the available space */
+    border-radius: 15px;
+    display: flex; /* Make it a flex container */
+    gap: 15px; /* Add gap between the left and right sections */
+}
+
+#accumulate_graph {
+    display: flex;
+    justify-content: center;  /* 가로 방향 중앙 정렬 */
+    align-items: center;      /* 세로 방향 중앙 정렬 */
+    height: 100%;             /* 부모 요소의 높이에 맞추기 */
+}
+
+
+#total_left{
+    background-color: var(--gray-color);
+    flex: 6; /* Make it take up half the remaining space */
+    border-radius: 15px;
+}
+
+#total_right{
+    background-color: var(--gray-color);
+    flex: 4; /* Make it take up half the remaining space */
+    border-radius: 15px;
+}

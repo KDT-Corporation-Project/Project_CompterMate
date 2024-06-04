@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="total_container">
+    <div id="total_top">
+        <div id="accumulate_graph"></div>
+        <script type="application/json" id="accumulate-data">{{ accumulate_graphJSON | safe }}</script>
+    </div>
+
+    <div id="total_bottom">
+        <div id="total_left">
+            고무 누적 그래프
+        </div>
+
+        <div id="total_right">
+            cctv
+        </div>
+    </div>
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="{{ url_for('static', filename='js/total.js') }}"></script>
+{% endblock %}
