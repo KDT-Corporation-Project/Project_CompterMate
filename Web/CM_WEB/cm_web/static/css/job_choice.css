@@ -1,0 +1,68 @@
+:root {
+    --gray-color: #F2F2F2;
+    --text-color: #7E7E7E;
+    --white-color: #ffffff;
+    --green-color: #1FA680;
+}
+
+
+* {
+box-sizing: border-box;
+}
+/* box-sizing 속성 -> 요소의 크기 계산 방법 지정 기본값은 content-box(요소 내부 콘텐츠 크기)
+: border-box 요소의 크기를 계산할 때 내부 여백과 테두리 요소를 크기에 포함 */
+
+body {
+    background-color: var(--gray-color);
+  }
+
+#index_main_box {
+    position: absolute; 
+    /* 포지셔닝이된 조상요소가 없어서 제일 바깥 기준으로 잡힙 */
+    background-color: var(--white-color);
+    border-radius: 15px;
+    inset: 50px;
+}
+
+/* 컴퓨터 메이트 로고 이미지 box*/
+#index_logo {
+    text-align: center; 
+    /* 이미지를 수평으로 가운데 정렬합니다. */
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#login_box {
+    position: absolute;
+    /* background-color: black;/ */
+    display: flex; /* 아이콘들을 수평으로 배치하기 위해 Flexbox를 사용합니다. */
+    justify-content: space-between; /* 각 아이콘 사이에 공간을 균등하게 분배합니다. */
+    top: 150px;
+    left: 50px;
+    bottom: 50px;
+    right: 50px
+}
+
+.icon_box {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬합니다. */
+    justify-content: center; /* 세로로 중앙 정렬합니다. */
+    align-items: center; /* 가로로 중앙 정렬합니다. */
+    width: 48%;
+    background-color: var(--gray-color);
+    border-radius: 15px;
+    text-align: center;
+    padding: 20px; /* 아이콘 박스 안의 여백을 추가합니다. */
+}
+
+.icon_box:hover {
+    background-color: var(--green-color); /* 호버 시 배경색을 녹색으로 변경 */
+}
+
+.job_text {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.5em; /* 텍스트 크기를 조절합니다. 필요에 따라 크기를 변경하세요. */
+    font-weight: bold; /* 텍스트를 굵게 만듭니다. */
+    margin-top: 30px;
+}

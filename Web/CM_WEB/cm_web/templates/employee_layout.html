@@ -6,21 +6,29 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/nav.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/total.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/nav.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"> <!--시명님이 생성-->
     <link rel="stylesheet" href="{{url_for('static', filename='css/dash.css')}}">
-    {% if title %}
-    <title>ComputerMate - {{title}}</title>
-    {% else %}
-    <title>ComputerMate</title>
-    {% endif %}
+
   </head>
 
   <body>
-    <!-- navbar는 include로 모든 페이지에 사용 -->
-    {% include "navbar.html" %}
-
+    <nav class="navbar">
+      <div class="white_back">
+        <div class="nav_logo">
+          <a href="/">
+            <img src="../static/img/cm_logo.png" alt="Logo">
+          </a>
+        </div>
+        <div class="nav_profile">
+          <img src="../static/img/profile.png" alt="profile">
+        </div>
+        <ul class="nav_menu">
+          <!--언젠가 필요할까?-->
+        </ul>
+      </div>
+    </nav>
     <main>
         <div class="main_container">
             {% block content %}

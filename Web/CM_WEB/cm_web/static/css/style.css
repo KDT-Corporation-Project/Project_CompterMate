@@ -1,0 +1,127 @@
+
+:root {
+    --gray-color: #F2F2F2;
+    --text-color: #7E7E7E;
+    --white-color: #ffffff;
+    --green-color: #1FA680;
+}
+
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F2F2F2;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 20px;
+    /*height: 70%;*/
+}
+
+.div_top {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #F2F2F2; /* gray background */
+    /*margin-bottom: 10px;*/
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+    border-radius: 20px;
+    padding-left: 30px;
+}
+
+.div_top p {
+    font-size: 24px; /* 원하는 폰트 크기로 설정 */
+    font-weight: bold; /* 폰트를 굵게 설정 */
+}
+
+.header-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.div_dashboard {
+    display: flex;
+    /*justify-content: space-between;*/
+}
+
+.left-panel, .right-panel {
+    flex: 1;
+    /*padding: 10px;*/
+    /*overflow-y: auto;*/
+}
+
+.left-panel {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+    /*background-color: #1FA680; !* gray background *!*/
+
+}
+
+
+
+.div_left01, .div_left02, .div_left03 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #F2F2F2; /* gray background */
+    /*margin-bottom: 10px;*/
+    /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+    border-radius: 20px;
+
+
+}
+
+.img-box {
+    flex: 1 1 calc(33.333% - 30px); /* 3 items per row with equal spacing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #efae6a;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.img-box img {
+    max-width: 90%;
+
+    height: auto;
+}
+
+.img-box:hover {
+    background-color: var(--green-color); /* Green background on hover */
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #F2F2F2; /* gray background */
+    padding: 20px;
+    border-radius: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-radius: 20px;
+    margin-left: 20px;
+
+}
+
+.graph-box, .time-box {
+    background-color: #F2F2F2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.time-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
