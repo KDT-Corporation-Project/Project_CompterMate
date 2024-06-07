@@ -5,7 +5,7 @@ import seaborn as sns
 
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
-from sklearn.linear_model import LinearRegression, Lasso, Ridge, BayesianRidge, ElasticNet, SGDRegressor, ARDRegression, HuberRegressor, Lars, LassoLars, LassoLarsIC, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, PassiveAggressiveRegressor, Perceptron, RANSACRegressor, TheilSenRegressor, TweedieRegressor, PoissonRegressor, GammaRegressor, GeneralizedLinearRegressor
+from sklearn.linear_model import LinearRegression, Lasso, Ridge, BayesianRidge, ElasticNet, SGDRegressor, ARDRegression, HuberRegressor, Lars, LassoLars, LassoLarsIC, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, PassiveAggressiveRegressor, Perceptron, RANSACRegressor, TheilSenRegressor, TweedieRegressor, PoissonRegressor, GammaRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor
 from lightgbm import LGBMRegressor
 from sklearn.model_selection import cross_val_score
@@ -72,6 +72,8 @@ def feature_importance_finder(model, data):
 
 def basic_modeling(X_train, y_train, X_test, y_test):
     """StandardScaler를 통한 linear regression, RandomForest, LGBMRegressor Modeling
+    
+    return: DataFrame
     """
     models = [
         ('LinearRegression', LinearRegression()),
@@ -94,9 +96,10 @@ def basic_modeling(X_train, y_train, X_test, y_test):
                 ('model', model)
             ])
             
-            mae_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='neg_mean_absolute_error')
-            mape_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='neg_mean_absolute_percentage_error')
-            r2_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='r2')
+            print(f'{name} with {scaler_name}')
+            mae_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='neg_mean_absolute_error', n_jobs=-1)
+            mape_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='neg_mean_absolute_percentage_error', n_jobs=-1)
+            r2_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='r2', n_jobs=-1)
             
             pipe.fit(X_train, y_train)
             y_pred = pipe.predict(X_test)
@@ -117,6 +120,10 @@ def basic_modeling(X_train, y_train, X_test, y_test):
                 'max_diff': diff.max(),
                 'top_features': feature_importance_finder(pipe, X_train)
             })
+            
+            print('.', end='')
+            
+    return pd.DataFrame(scores)
 
 
 def model_selection(data):
@@ -146,8 +153,7 @@ def model_selection(data):
         ('TheilSenRegressor', TheilSenRegressor()),
         ('TweedieRegressor', TweedieRegressor()),
         ('PoissonRegressor', PoissonRegressor()),
-        ('GammaRegressor', GammaRegressor()),
-        ('GeneralizedLinearRegressor', GeneralizedLinearRegressor())
+        ('GammaRegressor', GammaRegressor())
     ]
     
     scalers = [
@@ -156,25 +162,67 @@ def model_selection(data):
         ('RobustScaler', RobustScaler())
     ]
     
-    
     scores = []
     
     for name, model in models:
-        # Scaler별 pipeline
-        pipe = Pipeline([
-            ('scaler', StandardScaler()),
-            ('model', model)
-        ])
+        for scaler_name, scaler in scalers:
+            pipe = Pipeline([
+                ('scaler', scaler),
+                ('model', model)
+            ])
+            
+            print(f'{name} with {scaler_name}')
+            mae_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='neg_mean_absolute_error', n_jobs=-1)
+            mape_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='neg_mean_absolute_percentage_error', n_jobs=-1)
+            r2_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='r2', n_jobs=-1)
+            
+            pipe.fit(X_train, y_train)
+            y_pred = pipe.predict(X_test)
+            diff = y_test - y_pred
+            
+            scores.append({
+                'model': name,
+                'scaler': scaler_name,
+                'mae': mae_scores.mean(),
+                'mape': mape_scores.mean(),
+                'r2': r2_scores.mean(),
+                'mean_diff': diff.mean(),
+                'std_diff': diff.std(),
+                'min_diff': diff.min(),
+                '25%_diff': diff.quantile(0.25),
+                '50%_diff': diff.quantile(0.5),
+                '75%_diff': diff.quantile(0.75),
+                'max_diff': diff.max(),
+                'top_features': feature_importance_finder(pipe, X_train)
+            })
+            
+            print('.', end='')
         
-    
-
-        
-    
-    
-    
-    
+    return pd.DataFrame(scores)
 
 
+def plot_results(scores):
+    fig, ax = plt.subplots(1, 3, figsize=(20, 5))
+    sns.barplot(data=scores, x='model', y='mae', hue='scaler', ax=ax[0])
+    sns.barplot(data=scores, x='model', y='mape', hue='scaler', ax=ax[1])
+    sns.barplot(data=scores, x='model', y='r2', hue='scaler', ax=ax[2])
+    plt.show()
+    
+
+def plot_diff(scores):
+    """diff의 mean, std를 통한 diff 분포를 시각화
+    1) boxplot
+    2) histplot
+    3) scatterplot
+    """
+    
+    fig, ax = plt.subplots(1, 3, figsize=(20, 5))
+    sns.boxplot(data=scores, x='model', y='mean_diff', ax=ax[0])
+    sns.histplot(data=scores, x='mean_diff', kde=True, ax=ax[1])
+    sns.scatterplot(data=scores, x='mean_diff', y='std_diff', hue='model', ax=ax[2])
+    plt.show()
+    
+    
 
 
 
@@ -184,4 +232,13 @@ if __name__ == "__main__":
     train_data_2_4 = scale_2_4(train_data)
     oct_data_2_4 = scale_2_4(oct_data)
     
-    print(data.head())
+    X_train = train_data_2_4.drop("scale_pv", axis=1)
+    y_train = train_data_2_4["scale_pv"]
+    X_test = oct_data_2_4.drop("scale_pv", axis=1)
+    y_test = oct_data_2_4["scale_pv"]
+    
+    print('Start Modeling')
+    scores = basic_modeling(X_train, y_train, X_test, y_test)
+    print(scores)
+    plot_results(scores)
+    plot_diff(scores)
