@@ -11,7 +11,8 @@ from lightgbm import LGBMRegressor
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, r2_score
 
-
+# .py에서 함수 호출
+from bayesian_optimizer import bayes_SVR_RFR, bayes_scores
 
 def preps(data):
     """전처리
@@ -221,10 +222,17 @@ def plot_diff(scores):
     sns.histplot(data=scores, x='mean_diff', kde=True, ax=ax[1])
     sns.scatterplot(data=scores, x='mean_diff', y='std_diff', hue='model', ax=ax[2])
     plt.show()
-    
-    
 
 
+def sum_rank(data):
+    """scores의 mae, mape, mean_diff, diff_abs의 순위를 합친 rank 컬럼을 추가, 최적의 모델 탐색
+    """
+    data['diff_abs'] = data['max_diff'] - data['min_diff']
+
+
+    data['sum_rank'] = data['mae'].rank() + data['mape'].rank() + data['mean_diff'].rank() + data['diff_abs'].rank()
+    
+    return data.sort_values('sum_rank')
 
 if __name__ == "__main__":
     data = pd.read_csv("../DATA/raw_2023051820231018_경대기업맞춤형.csv")
