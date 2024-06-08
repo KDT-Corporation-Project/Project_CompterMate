@@ -80,7 +80,6 @@ def bayes_SVR_RFR(X_train, y_train):
     
     return svr_result, rfr_result
 
-
 def bayes_scores(X_train, y_train, X_test, y_test):
     svr_result, rfr_result = bayes_SVR_RFR(X_train, y_train)
     

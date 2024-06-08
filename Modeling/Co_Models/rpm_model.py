@@ -9,7 +9,8 @@ class RPMCalculator:
         self.model = model
         self.scaler = scaler
 
-    def set_dataframe(self, data):
+    @staticmethod
+    def set_dataframe(data):
         """Set the dataframe for RPM calculation
         1) Filter data
         2) Initialize new columns
@@ -48,7 +49,6 @@ class RPMCalculator:
                            'scale_dif', 'rpm_dif', 'loss']
         return data[columns_to_keep]
 
-
     def calculate_rpm(self, data):
         """Calculate RPM for each row in the dataframe
         1) Predict the scale_pv
@@ -65,8 +65,11 @@ class RPMCalculator:
             # Predict the scale_pv for one row
             X = data.iloc[row_num, :4].values
             X = self.scaler.transform(X.reshape(1, -1))
-            pred_scale = self.model.predict(X)[0]
-
+            pred_scale = self.model.predict(X)
+            
+            print(pred_scale)
+            break
+        
             # Calculate scale_dif and rpm_dif
             scale_dif = pred_scale - 3
             if scale_dif > 0.05:
@@ -83,6 +86,8 @@ class RPMCalculator:
             # Calculate next k_rpm_pv
             if data.loc[row_num, 'k_rpm_pv'] > 210:
                 next_k_rpm_pv = 210
+            elif data.loc[row_num, 'k_rpm_pv'] < 50:
+                next_k_rpm_pv = 50
             else:
                 next_k_rpm_pv = data.loc[row_num, 'k_rpm_pv'] + rpm_dif
 
@@ -99,18 +104,17 @@ class RPMCalculator:
 if __name__ == '__main__':
     # Example usage
     data = pd.read_csv('../DATA/raw_2023051820231018_경대기업맞춤형.csv')
-    data = data[ ['c_temp_pv', 'k_rpm_pv', 'n_temp_pv', 's_temp_pv', 'scale_pv']]
     
     from sklearn.ensemble import RandomForestRegressor
     from sklearn.preprocessing import StandardScaler
-    
+    from sklearn.model_selection import train_test_split
+    from model_selection import Scale_Prediction as sp
     model = RandomForestRegressor()
     scaler = StandardScaler()
     
-    from sklearn.model_selection import train_test_split
-    X = data.drop('scale_pv', axis=1)
-    y = data['scale_pv']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
+    train_data, test_data = sp().preps(data)
+    X_train, y_train = train_data.drop('scale_pv', axis=1), train_data['scale_pv']
+    X_test, y_test = test_data.drop('scale_pv', axis=1), test_data['scale_pv']
     
     X_train = scaler.fit_transform(X_train)
     model.fit(X_train, y_train)
@@ -119,7 +123,7 @@ if __name__ == '__main__':
     rpm_calculator = RPMCalculator(model, scaler)
 
     # Preprocess data
-    data = rpm_calculator.set_dataframe(data)
+    data = rpm_calculator.set_dataframe(test_data).reset_index(drop=True)
 
     # Execute the RPM calculation function
     print("calculate RPM")
