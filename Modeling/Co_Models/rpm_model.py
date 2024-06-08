@@ -67,9 +67,6 @@ class RPMCalculator:
             X = self.scaler.transform(X.reshape(1, -1))
             pred_scale = self.model.predict(X)
             
-            print(pred_scale)
-            break
-        
             # Calculate scale_dif and rpm_dif
             scale_dif = pred_scale - 3
             if scale_dif > 0.05:
