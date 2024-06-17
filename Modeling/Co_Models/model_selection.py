@@ -70,6 +70,7 @@ class Scale_Prediction:
         data = data[data["scale_pv"] < 5]
         data = data[data["E_scr_pv"] == 8]
         data = data[data["k_rpm_pv"] > 50]
+        data = data[data["c_temp_pv"] > 65]
         data.drop(
             [
                 "E_scr_sv",
@@ -95,7 +96,7 @@ class Scale_Prediction:
         Returns:
             data (DataFrame): DataFrame with scale_pv between 2 and 4
         """
-        return data[(data["scale_pv"] < 5) & (data["scale_pv"] > 2)]
+        return data[(data["scale_pv"] < 4) & (data["scale_pv"] > 2)]
 
     def feature_importance_finder(self, model, data):
         """Find top 3 feature importances of the model
